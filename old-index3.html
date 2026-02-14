@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betza Avalos — Software Engineer</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Prata&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --layer-1: #c5d5e4;
+            --layer-2: #7a96b5;
+            --layer-3: #5c7a9e;
+            --layer-4: #3f5a7f;
+            --layer-5: #2a3f5f;
+        }
+
+        body {
+            font-family: 'Anybody', sans-serif;
+            background: #0f0f1e;
+            color: #000;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            height: 800px;
+            position: relative;
+            padding: 40px;
+        }
+
+        .layer {
+            position: absolute;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Layer 5 - Connect (outermost) */
+        .layer-5 {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--layer-5);
+            z-index: 1;
+        }
+
+        /* Layer 4 - Projects */
+        .layer-4 {
+            top: 6%;
+            left: 5%;
+            width: 90%;
+            height: 88%;
+            background: var(--layer-4);
+            z-index: 2;
+        }
+
+        /* Layer 3 - Experience */
+        .layer-3 {
+            top: 12%;
+            left: 10%;
+            width: 80%;
+            height: 76%;
+            background: var(--layer-3);
+            z-index: 3;
+        }
+
+        /* Layer 2 - About */
+        .layer-2 {
+            top: 18%;
+            left: 15%;
+            width: 70%;
+            height: 64%;
+            background: var(--layer-2);
+            z-index: 4;
+        }
+
+        /* Layer 1 - Hero (center) */
+        .layer-1 {
+            top: 24%;
+            left: 20%;
+            width: 60%;
+            height: 52%;
+            background: var(--layer-1);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Hover effects */
+        .layer:not(.layer-1):hover {
+            background: white;
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        /* Center content */
+        .hero-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .center-text {
+            font-family: 'Anybody', sans-serif;
+            font-size: 120px;
+            color: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            letter-spacing: -3px;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+        }
+
+        .hero-image {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 65%;
+            z-index: 2;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Hide image when hovering other layers */
+        .layer-5:hover ~ .layer-1 .hero-image,
+        .layer-4:hover ~ .layer-1 .hero-image,
+        .layer-3:hover ~ .layer-1 .hero-image,
+        .layer-2:hover ~ .layer-1 .hero-image {
+            opacity: 0;
+        }
+
+        /* Change center text color on hover */
+        .layer-5:hover ~ .layer-1 .center-text { color: var(--layer-5); }
+        .layer-4:hover ~ .layer-1 .center-text { color: var(--layer-4); }
+        .layer-3:hover ~ .layer-1 .center-text { color: var(--layer-3); }
+        .layer-2:hover ~ .layer-1 .center-text { color: var(--layer-2); }
+
+        /* Expanded state */
+        .layer.expanded {
+            position: fixed;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0;
+            z-index: 1000;
+            background: white;
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .close-btn:hover {
+            background: rgba(0,0,0,0.2);
+            transform: rotate(90deg);
+        }
+
+        .layer.expanded .close-btn {
+            display: flex;
+        }
+
+        /* Section content */
+        .section-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 100px 50px;
+        }
+
+        .layer.expanded .section-content {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Content styling */
+        .content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .text-block {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .info-box {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid var(--layer-3);
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .item {
+            margin-bottom: 25px;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .item-subtitle {
+            font-size: 14px;
+            color: var(--layer-4);
+            margin-bottom: 10px;
+        }
+
+        .item-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .item-details li {
+            margin-bottom: 8px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--layer-4);
+            margin-bottom: 8px;
+        }
+
+        .skill-list {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-header {
+            background: var(--layer-4);
+            color: white;
+            padding: 25px;
+        }
+
+        .project-header h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .project-tech {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .project-body {
+            padding: 25px;
+        }
+
+        .project-body ul {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .project-body li {
+            margin-bottom: 8px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 15px 30px;
+            border: 2px solid #000;
+            text-decoration: none;
+            color: #000;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            background: #000;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container { height: 600px; }
+            .center-text { font-size: 80px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { height: 500px; padding: 20px; }
+            .center-text { font-size: 50px; letter-spacing: -2px; }
+            .layer { border-radius: 50px; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .center-text { font-size: 36px; }
+            .section-content { padding: 60px 20px; }
+        }
+        .mobile-label {
+            display: none; /* Hidden by default on desktop */
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Layer 5 - Connect -->
+        <div class="layer layer-5" data-section="connect" onclick="expandLayer(this, event)">
+            <button class="close-btn" onclick="closeLayer(event)">✕</button>
+            <div class="section-content">
+                <div class="content-container">
+                    <h2 class="section-title" style="color: var(--layer-5);">Connect</h2>
+                    <p class="text-block">I'm always open to discussing new opportunities, collaborations, or just chatting about technology.</p>
+                    <div class="contact-links">
+                        <a href="mailto:betzaavalosh@gmail.com" class="contact-link">Email</a>
+                        <a href="tel:915-218-7498" class="contact-link">Call</a>
+                        <a href="https://www.linkedin.com/in/betza-avalos/" class="contact-link" target="_blank">LinkedIn</a>
+                        <a href="#" class="contact-link">Resume</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 4 - Projects -->
+        <div class="layer layer-4" data-section="projects" onclick="expandLayer(this, event)">
+            <button class="close-btn" onclick="closeLayer(event)">✕</button>
+            <div class="section-content">
+                <div class="content-container">
+                    <h2 class="section-title" style="color: var(--layer-4);">Projects</h2>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <h3>Phishing Email Classification</h3>
+                                <div class="project-tech">Python • LLMs • Data Analysis</div>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>Developed phishing email classification tool</li>
+                                    <li>Designed interactive email simulation</li>
+                                    <li>Refined tool based on research findings</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header" style="background: #764ba2;">
+                                <h3>Hard Drive Tracking System</h3>
+                                <div class="project-tech">PHP • MySQL • JavaScript</div>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>Full-stack inventory management</li>
+                                    <li>MySQL database integration</li>
+                                    <li>Led design and development</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header" style="background: #f5576c;">
+                                <h3>Church Group Matching App</h3>
+                                <div class="project-tech">PHP • JavaScript • APIs</div>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>Full-stack web application</li>
+                                    <li>API integration for data storage</li>
+                                    <li>Automated messaging system</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header" style="background: #00c9ff;">
+                                <h3>School Emoji Map App</h3>
+                                <div class="project-tech">Dart • Flutter • Google APIs</div>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>Mobile app with Flutter</li>
+                                    <li>Google Maps integration</li>
+                                    <li>Location-based features</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header" style="background: #2A9D8F;">
+                                <h3>MSP430 Game Development</h3>
+                                <div class="project-tech">C • Embedded Systems</div>
+                            </div>
+                            <div class="project-body">
+                                <ul>
+                                    <li>Game for MSP430 microcontroller</li>
+                                    <li>Hardware component integration</li>
+                                    <li>Linux development</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 3 - Experience -->
+        <div class="layer layer-3" data-section="experience" onclick="expandLayer(this, event)">
+            <button class="close-btn" onclick="closeLayer(event)">✕</button>
+            <div class="section-content">
+                <div class="content-container">
+                    <h2 class="section-title" style="color: var(--layer-3);">Experience</h2>
+                    
+                    <div class="item">
+                        <div class="item-title">Research Assistant</div>
+                        <div class="item-subtitle">UTEP - PsyberSecurity Lab | Sep 2024 – Dec 2025</div>
+                        <ul class="item-details">
+                            <li>Developed data collection tools for research</li>
+                            <li>Conducted LLM research for phishing detection</li>
+                            <li>Created cybersecurity analysis tools</li>
+                            <li>Managed lab operations and documentation</li>
+                        </ul>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Independent Developer</div>
+                        <div class="item-subtitle">Freelance | Mar 2023 – Jul 2024</div>
+                        <ul class="item-details">
+                            <li>Learned new programming languages</li>
+                            <li>Developed applications for organizations</li>
+                            <li>Enhanced technical skill set</li>
+                        </ul>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-title">Application Designer</div>
+                        <div class="item-subtitle">Gainwell Technologies | Aug 2022 – Feb 2023</div>
+                        <ul class="item-details">
+                            <li>Performance and load testing</li>
+                            <li>Database error detection</li>
+                            <li>Test script maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 2 - About -->
+        <div class="layer layer-2" data-section="about" onclick="expandLayer(this, event)">
+            <button class="close-btn" onclick="closeLayer(event)">✕</button>
+            <div class="section-content">
+                <div class="content-container">
+                    <h2 class="section-title" style="color: var(--layer-2);">About Me</h2>
+                    
+                    <p class="text-block">
+                        Software Engineer with a Master's degree in Software Engineering. Specialized in 
+                        full-stack development, LLM research, and cybersecurity applications.
+                    </p>
+                    
+                    <p class="text-block">
+                        Passionate about creating elegant solutions to complex problems and building 
+                        tools that make a difference.
+                    </p>
+
+                    <div class="info-box">
+                        <div class="info-title">Education</div>
+                        <div class="item">
+                            <div class="item-title">🎓 Master of Science in Software Engineering</div>
+                            <div class="item-details">UTEP • December 2025 • GPA: 3.80</div>
+                        </div>
+                        <div class="item">
+                            <div class="item-title">🎓 Bachelor of Science in Computer Science</div>
+                            <div class="item-details">UTEP • May 2022 • GPA: 3.44 • Minor in Math</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-title">Technical Skills</div>
+                        <div class="skills-grid">
+                            <div>
+                                <div class="skill-group-title">Languages</div>
+                                <div class="skill-list">Python, Java, C, PHP, JavaScript, Dart</div>
+                            </div>
+                            <div>
+                                <div class="skill-group-title">Frameworks</div>
+                                <div class="skill-list">React, Flutter, Bootstrap, Node.js</div>
+                            </div>
+                            <div>
+                                <div class="skill-group-title">Technologies</div>
+                                <div class="skill-list">MySQL, Git, Linux, APIs</div>
+                            </div>
+                            <div>
+                                <div class="skill-group-title">Focus Areas</div>
+                                <div class="skill-list">Full-Stack, Testing, LLM Research</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 1 - Hero (center) -->
+        <div class="layer layer-1">
+            <div class="hero-content">
+                <h1 class="center-text" id="centerText">i'm betza</h1>
+                <img src="yo.png" alt="Betza" class="hero-image">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const centerText = document.getElementById('centerText');
+        const layers = document.querySelectorAll('.layer[data-section]');
+
+        // Change center text on hover
+        layers.forEach(layer => {
+            layer.addEventListener('mouseenter', function() {
+                const section = this.getAttribute('data-section');
+                centerText.textContent = section;
+            });
+
+            layer.addEventListener('mouseleave', function() {
+                centerText.textContent = "i'm betza";
+            });
+        });
+
+        function expandLayer(layer, event) {
+            if (event.target.classList.contains('close-btn') || 
+                layer.classList.contains('expanded')) {
+                return;
+            }
+            
+            layer.classList.add('expanded');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLayer(event) {
+            event.stopPropagation();
+            const layer = event.target.closest('.layer');
+            layer.classList.remove('expanded');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const expanded = document.querySelector('.layer.expanded');
+                if (expanded) {
+                    expanded.classList.remove('expanded');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

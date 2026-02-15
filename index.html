@@ -4,36 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Betza Avalos — Software Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <div class="container">
-        <div class="layer layer-5" data-section="connect" onclick="expandLayer(this, event)">
-            <span class="mobile-label">connect</span>
-            <button class="close-btn" onclick="closeLayer(event)">✕</button>
-            <div class="section-content">
-                <div class="content-container">
-                    <h2 class="section-title" style="color: var(--layer-5);">Connect</h2>
-                    <p class="text-block">I'm always open to discussing new opportunities, collaborations, or just chatting about technology.</p>
-                    <div class="contact-links">
-                        <a href="mailto:betzaavalosh@gmail.com" class="contact-link">Email</a>
-                        <a href="tel:915-218-7498" class="contact-link">Call</a>
-                        <a href="https://www.linkedin.com/in/betza-avalos/" class="contact-link" target="_blank">LinkedIn</a>
-                        <a href="#" class="contact-link">Resume</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Animated Code Background -->
+    <div class="code-background" id="codeBackground"></div>
+    
+    <!-- Available for Work Badge -->
+    <div class="availability-badge-top">
+        <span class="badge-dot"></span>
+        Available for Work
+    </div>
 
+    <div class="container">
         <div class="layer layer-4" data-section="projects" onclick="expandLayer(this, event)">
             <span class="mobile-label">projects</span>
             <button class="close-btn" onclick="closeLayer(event)">✕</button>
             <div class="section-content">
                 <div class="content-container">
                     <h2 class="section-title" style="color: var(--layer-4);">Projects</h2>
+                    <p class="section-subtitle">Featured work and technical implementations</p>
                     <div class="projects-grid">
-                        <div class="project-card">
+                        <div class="project-card" data-project="modal-phishing">
                             <div class="project-header">
                                 <h3>Phishing Email Classification</h3>
                                 <div class="project-tech">Python • LLMs • Data Analysis</div>
@@ -46,7 +39,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="project-card">
+                        <div class="project-card" data-project="modal-hardrive">
                             <div class="project-header" style="background: #764ba2;">
                                 <h3>Hard Drive Tracking System</h3>
                                 <div class="project-tech">PHP • MySQL • JavaScript</div>
@@ -59,7 +52,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="project-card">
+                        <div class="project-card" data-project="modal-church">
                             <div class="project-header" style="background: #f5576c;">
                                 <h3>Church Group Matching App</h3>
                                 <div class="project-tech">PHP • JavaScript • APIs</div>
@@ -72,7 +65,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="project-card">
+                        <div class="project-card" data-project="modal-emoji">
                             <div class="project-header" style="background: #00c9ff;">
                                 <h3>School Emoji Map App</h3>
                                 <div class="project-tech">Dart • Flutter • Google APIs</div>
@@ -85,7 +78,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="project-card">
+                        <div class="project-card" data-project="modal-msp430">
                             <div class="project-header" style="background: #2A9D8F;">
                                 <h3>MSP430 Game Development</h3>
                                 <div class="project-tech">C • Embedded Systems</div>
@@ -109,6 +102,7 @@
             <div class="section-content">
                 <div class="content-container">
                     <h2 class="section-title" style="color: var(--layer-3);">Experience</h2>
+                    <p class="section-subtitle">Professional journey and key achievements</p>
                     <div class="item">
                         <div class="item-title">Research Assistant</div>
                         <div class="item-subtitle">UTEP - PsyberSecurity Lab | Sep 2024 – Dec 2025</div>
@@ -147,35 +141,48 @@
             <div class="section-content">
                 <div class="content-container">
                     <h2 class="section-title" style="color: var(--layer-2);">About Me</h2>
-                    <p class="text-block">Software Engineer with a Master's degree in Software Engineering. Specialized in full-stack development, LLM research, and cybersecurity applications.</p>
-                    <p class="text-block">Passionate about creating elegant solutions to complex problems and building tools that make a difference.</p>
+                    <p class="section-subtitle">Software Engineer • Master's Graduate • Full-Stack Developer</p>
+                    <p class="text-block">
+                        Hi, I'm Betza! I'm a Software Engineer with a Master's degree in Computer Science from the University of Texas at El Paso.
+                        My passion lies in creating robust solutions that solve real-world problems.
+                    </p>
+                    <p class="text-block">
+                        Throughout my career, I've worked on diverse projects ranging from cybersecurity research to full-stack application development.
+                        I thrive on learning new technologies and applying them in innovative ways.
+                    </p>
+                    <p class="text-block">
+                        When I'm not coding, you can find me exploring the latest advancements in machine learning and AI,
+                        or contributing to open source communities.
+                    </p>
                     <div class="info-box">
                         <div class="info-title">Education</div>
                         <div class="item">
-                            <div class="item-title">🎓 Master of Science in Software Engineering</div>
+                            <svg class="section-icon" style="fill: var(--layer-2)" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                            <div class="item-title">Master of Science in Software Engineering</div>
                             <div class="item-details">UTEP • December 2025 • GPA: 3.80</div>
                         </div>
                         <div class="item">
-                            <div class="item-title">🎓 Bachelor of Science in Computer Science</div>
+                            <svg class="section-icon" style="fill: var(--layer-2)" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                            <div class="item-title">Bachelor of Science in Computer Science</div>
                             <div class="item-details">UTEP • May 2022 • GPA: 3.44 • Minor in Math</div>
                         </div>
                     </div>
                     <div class="info-box">
                         <div class="info-title">Technical Skills</div>
                         <div class="skills-grid">
-                            <div>
+                            <div class="skill-group">
                                 <div class="skill-group-title">Languages</div>
                                 <div class="skill-list">Python, Java, C, PHP, JavaScript, Dart</div>
                             </div>
-                            <div>
+                            <div class="skill-group">
                                 <div class="skill-group-title">Frameworks</div>
                                 <div class="skill-list">React, Flutter, Bootstrap, Node.js</div>
                             </div>
-                            <div>
+                            <div class="skill-group">
                                 <div class="skill-group-title">Technologies</div>
                                 <div class="skill-list">MySQL, Git, Linux, APIs</div>
                             </div>
-                            <div>
+                            <div class="skill-group">
                                 <div class="skill-group-title">Focus Areas</div>
                                 <div class="skill-list">Full-Stack, Testing, LLM Research</div>
                             </div>
@@ -192,10 +199,140 @@
                 <img src="about.png" alt="About" class="hero-image img-about">
                 <img src="experience.png" alt="Experience" class="hero-image img-experience">
                 <img src="projects.png" alt="Projects" class="hero-image img-projects">
-                <img src="connect.png" alt="Connect" class="hero-image img-connect">
             </div>
         </div>
     </div>
+
+    <!-- Contact Buttons at Bottom -->
+    <div class="contact-buttons-bottom">
+        <a href="mailto:betzaavalosh@gmail.com" class="contact-btn" title="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a href="https://github.com/bavalos6" class="contact-btn" target="_blank" title="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/betza-avalos-69439b206/" class="contact-btn" target="_blank" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="#" class="contact-btn" title="Resume">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        </a>
+    </div>
+
+    <!-- Project Modals -->
+    <div id="modal-phishing" class="project-modal">
+        <div class="project-modal-content">
+            <button class="project-modal-close" onclick="closeProjectModal()">✕</button>
+            <div class="project-modal-header" style="background: var(--layer-4);">
+                <h2>Phishing Email Classification Tool</h2>
+                <div class="project-modal-tech">Python • LLMs • Machine Learning</div>
+            </div>
+            <div class="project-modal-body">
+                <div class="project-modal-section">
+                    <h3>Overview</h3>
+                    <p>Advanced phishing email detection using Large Language Models with interactive simulation system.</p>
+                </div>
+                
+                <div class="project-media">
+                    <!-- Replace with your image -->
+                    <!-- <img src="phishing-screenshot.jpg" alt="Project Screenshot"> -->
+                    <!-- OR video -->
+                    <!-- <video controls><source src="Screen Recording 2026-02-09 at 5.08.51 PM.mov" type="video/mov"></video> -->
+                </div>
+
+                <div class="project-modal-section">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Interactive email simulation for data collection</li>
+                        <li>ML model trained on real phishing examples</li>
+                        <li>Real-time classification with confidence scores</li>
+                    </ul>
+                </div>
+
+                <!-- <div class="project-links">
+                    <a href="#" class="project-link-btn">View Code</a>
+                    <a href="#" class="project-link-btn">Live Demo</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hardrive" class="project-modal">
+        <div class="project-modal-content">
+            <button class="project-modal-close" onclick="closeProjectModal()">✕</button>
+            <div class="project-modal-header" style="background: #764ba2;">
+                <h2>Hard Drive Tracking System</h2>
+                <div class="project-modal-tech">PHP • MySQL • JavaScript</div>
+            </div>
+            <div class="project-modal-body">
+                <div class="project-modal-section">
+                    <h3>Overview</h3>
+                    <p>Full-stack inventory management system built with agile methodology.</p>
+                </div>
+                <div class="project-media">
+                    <!-- <img src="main page.png" alt="Project Screenshot"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-church" class="project-modal">
+        <div class="project-modal-content">
+            <button class="project-modal-close" onclick="closeProjectModal()">✕</button>
+            <div class="project-modal-header" style="background: #f5576c;">
+                <h2>Church Group Matching App</h2>
+                <div class="project-modal-tech">PHP • JavaScript • APIs</div>
+            </div>
+            <div class="project-modal-body">
+                <div class="project-modal-section">
+                    <h3>Overview</h3>
+                    <p>Web app matching users with church groups using compatibility algorithms.</p>
+                </div>
+                <div class="project-media">
+                    <!-- Add image/video here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-emoji" class="project-modal">
+        <div class="project-modal-content">
+            <button class="project-modal-close" onclick="closeProjectModal()">✕</button>
+            <div class="project-modal-header" style="background: #00c9ff;">
+                <h2>School Emoji Map App</h2>
+                <div class="project-modal-tech">Dart • Flutter • Google APIs</div>
+            </div>
+            <div class="project-modal-body">
+                <div class="project-modal-section">
+                    <h3>Overview</h3>
+                    <p>Flutter mobile app with location-based emoji placement on Google Maps.</p>
+                </div>
+                <div class="project-media">
+                    <!-- Add image/video here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-msp430" class="project-modal">
+        <div class="project-modal-content">
+            <button class="project-modal-close" onclick="closeProjectModal()">✕</button>
+            <div class="project-modal-header" style="background: #2A9D8F;">
+                <h2>MSP430 Game Development</h2>
+                <div class="project-modal-tech">C • Embedded Systems</div>
+            </div>
+            <div class="project-modal-body">
+                <div class="project-modal-section">
+                    <h3>Overview</h3>
+                    <p>Game for MSP430 microcontroller with hardware component integration.</p>
+                </div>
+                <div class="project-media">
+                    <!-- Add image/video here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script2.js"></script>
 </body>
-<script src="script2.js"></script>
 </html>
